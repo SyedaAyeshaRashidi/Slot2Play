@@ -84,24 +84,52 @@
 
 //--------------------------------------------------------------------------------------------
 
+// import React from 'react';
+// import { SafeAreaView, StyleSheet } from 'react-native';
+// import VenueDetails from './src/Screens/VenueDetails/VenueDetails';
+
+// const App = () => {
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <VenueDetails />
+//     </SafeAreaView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#121212',
+//   },
+// });
+
+// export default App;   // 🔴 YE LINE MISSING THI
+
+
+// import React from 'react';
+// import { SafeAreaView, StyleSheet } from 'react-native';
+// import Football_IndoorList from './src/Screens/Football_IndoorList/Football_IndoorList';
+
+// const App = () => {
+//   return (
+//     <SafeAreaView style={{ flex: 1, backgroundColor: '#121212' }}>
+//       <Football_IndoorList />
+//     </SafeAreaView>
+//   );
+// };
+
+// export default App;
+
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import VenueDetails from './src/Screens/VenueDetails/VenueDetails';
+import GamingZonesList from './src/Screens/GamingZonesList/GamingZonesList';
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <VenueDetails />
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#121212' }}>
+      <GamingZonesList />
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#121212',
-  },
-});
-
 export default App;
-

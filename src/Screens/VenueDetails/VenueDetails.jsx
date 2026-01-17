@@ -125,16 +125,56 @@
 
 
 
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import React from 'react'
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  ImageBackground,
+  Alert,
+} from 'react-native';
 
 const VenueDetails = () => {
-    return (
-         <ScrollView style={styles.container}>
-      <View style={styles.imageBox} />
 
+  const venue = {
+    name: 'Lahore Indoor Cricket',
+    price: 'Rs 3000 / hr',
+  };
+
+  const slots = ['9-10 AM','10-11 AM','11-12 PM','12-1 PM'];
+  const [selectedSlot, setSelectedSlot] = useState(null);
+
+  const handleSlotPress = (slot) => {
+    setSelectedSlot(selectedSlot === slot ? null : slot);
+  };
+
+  const handleBooking = () => {
+    Alert.alert(
+      'Booking Confirmed ✅',
+      `Your slot ${selectedSlot} has been booked successfully!`
+    );
+  };
+
+  return (
+    <ImageBackground source={require('../../assets/bg.png')}
+            style={styles.container}
+        >
+
+    <ScrollView style={styles.container}>
+
+      {/* <View style={styles.imageBox} />
+       */}
+
+       <Image
+        source={require('../../assets/cric1.jpg')}
+        style={styles.imageBox}
+        // resizeMode="cover"
+/>
       <Text style={styles.heading}>Cricket Booking</Text>
+
       <Text style={styles.desc}>
         Book indoor cricket easily with Slot2Play. Choose your time slot and enjoy.
       </Text>
@@ -147,84 +187,139 @@ const VenueDetails = () => {
       <Text style={styles.slotTitle}>Time Slots</Text>
 
       <View style={styles.slots}>
-        {['9-10 AM','10-11 AM','11-12 PM','12-1 PM'].map(slot => (
-          <View key={slot} style={styles.slot}>
+        {slots.map(slot => (
+          <TouchableOpacity
+            key={slot}
+            style={
+              selectedSlot === slot
+                ? styles.slotSelected
+                : styles.slot
+            }
+            onPress={() => handleSlotPress(slot)}
+          >
             <Text style={styles.slotText}>{slot}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </View>
 
-      <TouchableOpacity style={styles.bookBtn}>
-        <Text style={styles.bookText}>Book Slots</Text>
+      <TouchableOpacity
+        style={
+          selectedSlot
+            ? styles.bookBtn
+            : styles.bookBtnDisabled
+        }
+        disabled={!selectedSlot}
+        onPress={handleBooking}
+      >
+        <Text style={styles.bookText}>
+          {selectedSlot ? 'Confirm Booking' : 'Select a Slot'}
+        </Text>
       </TouchableOpacity>
-    </ScrollView>
-  );
-}
 
-export default VenueDetails
+    </ScrollView>
+    </ImageBackground>
+  );
+};
+
+export default VenueDetails;
+
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
-    backgroundColor: '#000000',
+    // backgroundColor: '#000',
     padding: 16,
   },
+
   imageBox: {
-    height: 180,
-    backgroundColor: '#1a0833',
-    borderRadius: 20,
-    marginBottom: 16,
+     height: 280,
+     width: '100%',
+     borderRadius: 20,
+     marginBottom: 26,
+     marginTop: 35,
   },
+
   heading: {
     color: 'white',
     fontSize: 24,
     fontWeight: 'bold',
   },
+
   desc: {
     color: '#aaa',
     marginVertical: 10,
   },
+
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 12,
   },
+
   info: {
     color: 'white',
   },
+
   price: {
-    color: '#2ecc71',
+    color: 'rgba(248, 248, 248, 0.86)',
     fontWeight: 'bold',
   },
+
   slotTitle: {
     color: 'white',
     fontSize: 18,
     marginBottom: 10,
   },
+
   slots: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 10,
   },
+
   slot: {
-    backgroundColor: '#111',
-    padding: 10,
-    borderRadius: 10,
+    backgroundColor: '#11111100',
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#333',
+    borderColor: '#333333',
   },
+
+  slotSelected: {
+    backgroundColor: '#320c44',
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#320c44',
+  },
+
   slotText: {
     color: 'white',
+    fontWeight: '500',
   },
+
   bookBtn: {
-    backgroundColor: '#2ecc71',
+    backgroundColor: '#320c44',
     padding: 16,
     borderRadius: 30,
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 25,
   },
+
+  bookBtnDisabled: {
+    backgroundColor: '#320c44',
+    padding: 16,
+    borderRadius: 30,
+    alignItems: 'center',
+    marginTop: 25,
+    opacity: 0.6,
+  },
+
   bookText: {
-    color: '#000',
+    color: 'white',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 20,
   },
 });
